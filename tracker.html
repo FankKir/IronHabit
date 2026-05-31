@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+            <title>IronHabit - Трекер</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body class="tracker-layout">
+        <div class="sidebar">
+            <h2>IronHabit</h2>
+            <nav>
+                <a href="index.html">Главная</a>
+                <a href="achievements.html">🥇Ачивки</a>
+                <a href="#" id="about-btn">Ознакомиться с сайтом</a>
+                <a href="#" id="guide-btn" onclick="return false">Как пользоваться</a>
+            </nav>
+        </div>
+        <div class="main-content">
+        <header>
+                <h1>Мои привычки</h1>
+                <p id="stats">Выполнено: 0 из 0</p>
+                <p id="level">Уровень 1</p>
+            <div id="xp-bar-container">
+                <div id="xp-bar"></div>
+            </div>
+        </header>
+
+        <div class="quote-block">
+            <p id="quote-text">🔥 Загрузка цитаты...</p>
+        </div>
+        
+        <section class="add-habit">
+                <input type="text" placeholder="Название привычки">
+                <button id="add-btn">Добавить</button>
+        </section>
+        <section class="habits-list">
+        </section>
+        <div id="achievement" class="achievement">
+            <span class="achievement-label">∼Ачивка∼</span>
+            <p id="achievement-text">🥇 Первый шаг!</p>
+        </div>
+        </div>
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <button class="modal-close" id="modal-close">✗</button>
+                <h2>Добро пожаловать в IronHabit!</h2>
+                <p>IronHabit - это трекер привычек для тех кто хочет стать лучше каждый день. Добавляй привычки, отмечай выполненные, зарабатывай XP (опыт) и повышай уровень. Дисциплина - это не талант, это привычка.</p>
+                <button class="btn" id="modal-close-btn">Понятно!</button>
+            </div>
+        </div>
+        <div class="modal" id="guide-modal">
+            <div class="modal-content">
+                <button class="modal-close" id="guide-modal-close">✗</button>
+                <h2>Как пользоваться</h2>
+                <p><span style="color:#4ecdc4; font-size:22.5px">◯</span> <b>Кружок</b> - нажми чтобы отметить привычку выполненной</p>
+                <p><span style="color:#8b0000; font-size:25px">✗</span> <b>Красный крестик</b> - удалить привычку</p>
+                <p>🔥 <b>XP и уровни</b> - за каждую выполненную привычку получаешь +10 XP</p>
+                <p>🥇 <b>Ачивки</b> - выполняй привычки и получай награды</p>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
