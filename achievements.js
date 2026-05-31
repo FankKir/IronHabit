@@ -2,8 +2,8 @@ const achievementsList = document.querySelector('#achievements-list')
 const achievements = JSON.parse(localStorage.getItem('achievements')) || []
 
 const allAchievements = [
-    { id: 'first', icon: '🥇', name: 'Первый шаг', desc: 'Добавь первую ачивку' },
-    { id: 'three', icon: '🔥', name: 'На разогреве', desc: 'Выполни 3 ачивки'},
+    { id: 'first', icon: '🥇', name: 'Первый шаг', desc: 'Добавь первую привычку' },
+    { id: 'three', icon: '🔥', name: 'На разогреве', desc: 'Выполни 3 привычки'},
     { id: 'five', icon: '💪', name: 'Железная воля', desc: 'Выполни 5 привычек'},
     { id: 'level2', icon: '⚡', name: 'Уровень 2', desc: 'Достигни 2-го уровня'},
 ]
