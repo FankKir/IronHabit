@@ -1,3 +1,8 @@
+if (window,innerWidth <= 600) {
+    const sidebar =document.querySelector('.sidebar')
+    sidebar.style.cssText = 'position: fixed !important; left: -300px !important; width: 260px !important;';
+}
+
 let achievement = JSON.parse(localStorage.getItem('achievement')) || []
 const button = document.querySelector('#add-btn')
 const input = document.querySelector('input')
@@ -184,3 +189,30 @@ window.addEventListener('click', function(e) {
         e.target.style.display = 'none';
     }
 });
+
+const sidebar = document.getElementById('sidebar');
+
+if (window.innerWidth <= 600) {
+    sidebar.style.left = '-300px';
+}
+
+function openSidebar() {
+    sidebar.style.display = 'block';
+    sidebar.style.position = 'fixed';
+    sidebar.style.cssText += '; left: 0 !important;';
+    sidebar.style.top = '0';
+    sidebar.style.width = '260px';
+    sidebar.style.height = '100%';
+    sidebar.style.zIndex = '20';
+    sidebar.style.background = '#0a0a0a';
+    sidebar.style.padding = '30px 20px';
+    sidebar.style.color = '#aaaaaa';
+    document.getElementById('overlay').classList.add('open');
+    document.querySelector('.topbar').style.display = 'none';
+}
+
+function closeSidebar() {
+    sidebar.style.cssText += '; left: -300px !important;';
+    document.getElementById('overlay').classList.remove('open');
+    document.querySelector('.topbar').style.display = 'flex';
+}

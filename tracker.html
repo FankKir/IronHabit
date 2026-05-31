@@ -6,8 +6,8 @@
             <title>IronHabit - Трекер</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body class="tracker-layout">
-        <div class="sidebar">
+    <body class="tracker-layout" style="overflow-x: hidden;">
+        <div class="sidebar" id="sidebar">
             <h2>IronHabit</h2>
             <nav>
                 <a href="index.html">Главная</a>
@@ -15,6 +15,12 @@
                 <a href="#" id="about-btn">Ознакомиться с сайтом</a>
                 <a href="#" id="guide-btn" onclick="return false">Как пользоваться</a>
             </nav>
+        </div>
+        <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+        <div class="topbar">
+            <button class="burger" onclick="openSidebar()">☰</button>
+            <span>IronHabit</span>
         </div>
         <div class="main-content">
         <header>
