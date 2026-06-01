@@ -196,6 +196,12 @@ h1 {
     gap: 8px;
 }
 
+.modal-content td {
+    padding: 8px 6px;
+    vertical-align: middle;
+    text-align: left;
+}
+
 .modal-content p span {
     vertical-align: middle;
     line-height: 1;
