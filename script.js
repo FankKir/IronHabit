@@ -79,7 +79,8 @@ function createCard(habit) {
 
     const doneBtn = document.createElement('button')
     doneBtn.className = 'done-btn'
-    doneBtn.textContent = '✔'
+    doneBtn.innerHTML = '<img src="icons/icons8-done-100.png" style="width: 20px; height: 20px;">'
+    doneBtn.querySelector('img').style.opacity = habit.done ? '1' : '0'
 
     const p = document.createElement('p')
     p.textContent = habit.text
@@ -95,13 +96,14 @@ function createCard(habit) {
 
     const deleteBtn = document.createElement('button')
     deleteBtn.className = 'delete-btn'
-    deleteBtn.textContent = '✗'
+    deleteBtn.innerHTML = '<img src="icons/icons8-close-white-100.png" style="width: 20px; height: 20px;">'
     deleteBtn.style.background = '#5a0000'
 
     doneBtn.addEventListener('click', function() {
         habit.done = !habit.done
         p.style.textDecoration = habit.done ? 'line-through' : 'none'
         p.style.opacity = habit.done ? '0.5' : '1'
+        doneBtn.querySelector('img').style.opacity = habit.done ? '1' : '0'
         doneBtn.style.background = habit.done ? '#1a6a62' : 'transparent'
         doneBtn.style.color = habit.done ? '#0f0f0f' : 'transparent'
         card.style.background = habit.done ? '#0a0a0a' : '#1a1a1a'
@@ -174,11 +176,12 @@ const quotes = [
     "Не ищи мотивацию, строй привычки.",
     "Победи себя сегодня - завтра будет легче.",
     "Прогресс важнее совершенства."
+    // добавить цитаты (особенно Дэвида Гоггинса)
 ];
 
 function showRandomQuote() {
     const random = Math.floor(Math.random() * quotes.length);
-    document.getElementById("quote-text").textContent = "🔥 " + quotes[random];
+    document.getElementById("quote-text").innerHTML = '<img src="icons/icons8-fire-100.png" style="width: 26px; height: 26px; vertical-align: -6px; marhin-right: 4px;"> ' + quotes[random];
 }
 
 showRandomQuote();
