@@ -14,16 +14,16 @@ const aboutBtn = document.querySelector('#about-btn')
 const modal = document.querySelector('#modal')
 const modalClose = document.querySelector('#modal-close')
 
-aboutBtn.addEventListener('click', function() {
+if (aboutBtn) aboutBtn.addEventListener('click', function() {
     modal.style.display = 'flex'
 })
 
-modalClose.addEventListener('click', function() {
+if (modalClose) modalClose.addEventListener('click', function() {
     modal.style.display = 'none'
 })
 
 const modalCloseBtn = document.querySelector('#modal-close-btn')
-modalCloseBtn.addEventListener('click', function() {
+if (modalCloseBtn) modalCloseBtn.addEventListener('click', function() {
     modal.style.display = 'none'
 })
 
@@ -31,21 +31,23 @@ const guideBtn = document.querySelector('#guide-btn')
 const guideModal = document.querySelector('#guide-modal')
 const guideModalClose = document.querySelector('#guide-modal-close')
 
-guideBtn.addEventListener('click', function(){
+if (guideBtn) guideBtn.addEventListener('click', function(){
     guideModal.style.display = 'flex'
 })
 
-guideModalClose.addEventListener('click', function(){
+if (guideModalClose) guideModalClose.addEventListener('click', function(){
     guideModal.style.display = 'none'
 })
 
 function updateStats() {
+    if (!stats) return;
     const total = habits.length
     const done = habits.filter(h => h.done).length
     stats.textContent = 'Выполнено: ' + done + ' из ' + total
 }
 
 function updateXp(){
+    if (!levelEl) return;
     const done = habits.filter(h => h.done).length
     const xp = done * 10
     const level = Math.floor(xp / 50) + 1
@@ -140,7 +142,7 @@ deleteBtn.addEventListener('click', function() {
     card.appendChild(deleteBtn)
     list.appendChild(card)
 }
-button.addEventListener('click', function() {
+if (button) button.addEventListener('click', function() {
     const text = input.value
     if (text === '') return
     const habit = {text: text, done: false}
@@ -157,13 +159,13 @@ button.addEventListener('click', function() {
     input.value = ''
 })
 
-input.addEventListener('keydown', function(e) {
+if (input) input.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
         button.click()
     }
 })
 
-habits.forEach(function(habit) {
+if (list) habits.forEach(function(habit) {
     createCard(habit)
 })
 updateStats()
@@ -180,6 +182,7 @@ const quotes = [
 ];
 
 function showRandomQuote() {
+    if (!document.getElementById("quote-text")) return;
     const random = Math.floor(Math.random() * quotes.length);
     document.getElementById("quote-text").innerHTML = '<img src="icons/icons8-fire-100.png" style="width: 26px; height: 26px; vertical-align: -6px; marhin-right: 4px;"> ' + quotes[random];
 }
@@ -219,3 +222,8 @@ function closeSidebar() {
     document.getElementById('overlay').classList.remove('open');
     document.querySelector('.topbar').style.display = 'flex';
 }
+
+const lang = navigator.language.slice(0, 2);
+const url = `https://www.google.com/search?q=David+Goggins&hl=${lang}`;
+const link = document.getElementById('goggins-link');
+if (link) link.href = url;

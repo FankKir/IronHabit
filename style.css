@@ -201,6 +201,12 @@ h1 {
     gap: 8px;
 }
 
+.modal-content p.centered {
+    display: block;
+    text-align: center;
+    padding-left: 0;
+}
+
 .modal-content td {
     padding: 6px 2px;
     vertical-align: middle;
