@@ -411,4 +411,9 @@ h1 {
     body {
         overflow-x: hidden;
     }
+    #goggins-link {
+        position: relative;
+        z-index: 10;
+        pointer-events: auto;
+    }
 }
