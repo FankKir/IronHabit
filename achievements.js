@@ -15,3 +15,10 @@ allAchievements.forEach(function(ach){
     card.innerHTML = '<span class="ach-icon">' + ach.icon + '</span><div><p class="ach-name">' + ach.name + '</p><p class="ach-desc">' + ach.desc + '</p></div>'
     achievementsList.appendChild(card)
 })
+
+const statsEl = document.getElementById('achievements-stats');
+if (statsEl) {
+    const total = allAchievements.length;
+    const unlocked = achievements.length;
+    statsEl.textContent = 'Получено: ' + unlocked + ' из ' + total;
+}
