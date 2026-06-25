@@ -102,6 +102,12 @@ function createCard(habit) {
     deleteBtn.style.background = '#5a0000'
 
     doneBtn.addEventListener('click', function() {
+        
+        if (!habit.done) {
+            let totalDone = parseInt(localStorage.getItem('totalDone') || '0');
+            totalDone++;
+            localStorage.setItem('totalDone', totalDone);
+        }
         habit.done = !habit.done
         p.style.textDecoration = habit.done ? 'line-through' : 'none'
         p.style.opacity = habit.done ? '0.5' : '1'
@@ -147,6 +153,11 @@ if (button) button.addEventListener('click', function() {
     if (text === '') return
     const habit = {text: text, done: false}
     habits.push(habit)
+
+    let totalAdded = parseInt(localStorage.getItem('totalAdded') || '0');
+    totalAdded++;
+    localStorage.setItem('totalAdded', totalAdded);
+
     localStorage.setItem('habits', JSON.stringify(habits))
     createCard(habit)
     if (habits.length === 1 && !achievements.includes('first')) {
