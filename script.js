@@ -48,28 +48,68 @@ function updateStats() {
 
 function updateXp(){
     if (!levelEl) return;
-    const done = habits.filter(h => h.done).length
-    const xp = done * 10
+    const xp = parseInt(localStorage.getItem('totalDone') || '0') * 10
     const level = Math.floor(xp / 50) + 1
     const xpInLevel = xp % 50
     const percent = (xpInLevel / 50) * 100
     levelEl.textContent = 'Уровень ' + level + ' - ' + xp + ' XP'
-    if (level === 2 && !achievements.includes('level2')) {
+    if (level >= 2 && !achievements.includes('level2')) {
         achievements.push('level2')
         localStorage.setItem('achievements', JSON.stringify(achievements))
-        showAchievement('⚡ Уровень 2!')
+        showAchievement('<img src="icons/icons8-flash-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Уровень 2!')
+    }
+    if (level >= 3 && !achievements.includes('level3')) {
+        achievements.push('level3')
+        localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-fire-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Огонь!')
+    }
+    if (level >= 5 && !achievements.includes('level5')) {
+        achievements.push('level5')
+        localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-crown-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Элита!')
+    }
+    if (level >= 10 && !achievements.includes('level10')) {
+        achievements.push('level10')
+        localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-diamond-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Легенда!')
     }
     xpBar.style.width =percent + '%'
 }
 
+let achievementQueue = [];
+let isShowingAchievement = false;
+
 function showAchievement(text) {
-    const achievement = document.querySelector('#achievement')
-    const achievementText = document.querySelector('#achievement-text')
-    achievementText.textContent = text
-    achievement.style.display = 'block'
-    setTimeout(function(){
-        achievement.style.display = 'none'
-    }, 3000)
+    achievementQueue.push(text);
+    if (!isShowingAchievement) {
+        isShowingAchievement = true;
+        setTimeout(showNextAchievement, 100);
+    }
+}
+
+function showNextAchievement() {
+    if (achievementQueue.length === 0) {
+        isShowingAchievement = false;
+        return;
+    }
+    isShowingAchievement = true;
+    const text = achievementQueue.shift();
+    const achievement = document.querySelector('#achievement');
+    const achievementText = document.querySelector('#achievement-text');
+    const remaining = achievementQueue.length;
+    if (remaining > 0) {
+        achievementText.innerHTML = text + '<span style="display: block; margin-top: 6px; color: #8b0000; font-size: 12px; font-weight: normal;">и ещё ' + remaining + '</span>';
+    } else {
+        achievementText.innerHTML = text + '<span style="display: block; margin-top: 6px; color: transparent; font-size: 12px; font-weight: normal;">и ещё 0</span>';
+    }
+    achievementText.style.textAlign = 'center';
+    achievementText.style.width = '100%';
+    achievement.style.display = 'flex';
+    achievementText.style.alignItems = 'center';
+    setTimeout(function() {
+        achievement.style.display = 'none';
+        showNextAchievement();
+    }, 3000) 
 }
 
 let habits = JSON.parse(localStorage.getItem('habits')) || []
@@ -120,17 +160,34 @@ function createCard(habit) {
         localStorage.setItem('habits', JSON.stringify(habits))
         updateStats()
         updateXp()
-        const done = habits.filter(h => h.done).length
-        if (done === 3 && !achievements.includes('three')) {
+        const tDone = parseInt(localStorage.getItem('totalDone') || '0');
+        if (tDone >= 3 && !achievements.includes('three')) {
             achievements.push('three')
             localStorage.setItem('achievements', JSON.stringify(achievements))
-            showAchievement('🔥 На разогреве!')
+            showAchievement('<img src="icons/icons8-fire-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> На разогреве!')
         }
-        if (done === 5 && !achievements.includes('five')) {
+        if (tDone >= 5 && !achievements.includes('five')) {
             achievements.push('five')
             localStorage.setItem('achievements', JSON.stringify(achievements))
-        showAchievement('💪 Железная воля!')
+        showAchievement('<img src="icons/icons8-biceps-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Железная воля!')
         }
+        if (tDone >= 10 && !achievements.includes('ten')) {
+            achievements.push('ten')
+            localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-running-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> В ритме!')
+        }
+        if (tDone >= 25 && !achievements.includes('twentytwo')) {
+            achievements.push('twentytwo')
+            localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-flash-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Машина!')
+        }
+        if (tDone >= 50 && !achievements.includes('fifty')) {
+            achievements.push('fifty')
+            localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-skull-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Зверь!')
+        }
+        
+
 })
 
 deleteBtn.addEventListener('click', function() {
@@ -160,11 +217,33 @@ if (button) button.addEventListener('click', function() {
 
     localStorage.setItem('habits', JSON.stringify(habits))
     createCard(habit)
-    if (habits.length === 1 && !achievements.includes('first')) {
+    const tAdded = parseInt(localStorage.getItem('totalAdded') || '0');
+    if (tAdded >= 1 && !achievements.includes('first')) {
         achievements.push('first')
         localStorage.setItem('achievements', JSON.stringify(achievements))
-        showAchievement('🥇 Первый шаг!')
+        showAchievement('<img src="icons/icons8-medal-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Первый шаг!')
     }
+    if (tAdded >= 5 && !achievements.includes('fifth')) {
+        achievements.push('fifth')
+        localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-clipboard-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Строитель!')
+    }
+    if (tAdded >= 10 && !achievements.includes('tenth')) {
+        achievements.push('tenth')
+        localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-crane-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Архитектор!')
+    }
+    if (tAdded >= 50 && !achievements.includes('fiftienth')) {
+        achievements.push('fiftienth')
+        localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-star-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> Мастер!')
+    }
+    if (tAdded >= 100 && !achievements.includes('hundredth')) {
+        achievements.push('hundredth')
+        localStorage.setItem('achievements', JSON.stringify(achievements))
+        showAchievement('<img src="icons/icons8-goat-100.png" style="width: 24px; height: 24px; vertical-align: middle;"> GOAT!')
+    }
+
     updateStats()
     updateXp()
     input.value = ''
@@ -195,7 +274,7 @@ const quotes = [
 function showRandomQuote() {
     if (!document.getElementById("quote-text")) return;
     const random = Math.floor(Math.random() * quotes.length);
-    document.getElementById("quote-text").innerHTML = '<img src="icons/icons8-fire-100.png" style="width: 26px; height: 26px; vertical-align: -6px; marhin-right: 4px;"> ' + quotes[random];
+    document.getElementById("quote-text").innerHTML = '<img src="icons/icons8-fire-100.png" style="width: 26px; height: 26px; vertical-align: -6px; margin-right: 4px;"> ' + quotes[random];
 }
 
 showRandomQuote();
